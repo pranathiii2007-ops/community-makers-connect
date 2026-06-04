@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as BusinessIdeasRouteImport } from './routes/business-ideas'
 import { Route as IndexRouteImport } from './routes/index'
 
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BusinessIdeasRoute = BusinessIdeasRouteImport.update({
   id: '/business-ideas',
   path: '/business-ideas',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/business-ideas': typeof BusinessIdeasRoute
+  '/marketplace': typeof MarketplaceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/business-ideas': typeof BusinessIdeasRoute
+  '/marketplace': typeof MarketplaceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/business-ideas': typeof BusinessIdeasRoute
+  '/marketplace': typeof MarketplaceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/business-ideas'
+  fullPaths: '/' | '/business-ideas' | '/marketplace'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/business-ideas'
-  id: '__root__' | '/' | '/business-ideas'
+  to: '/' | '/business-ideas' | '/marketplace'
+  id: '__root__' | '/' | '/business-ideas' | '/marketplace'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BusinessIdeasRoute: typeof BusinessIdeasRoute
+  MarketplaceRoute: typeof MarketplaceRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/business-ideas': {
       id: '/business-ideas'
       path: '/business-ideas'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BusinessIdeasRoute: BusinessIdeasRoute,
+  MarketplaceRoute: MarketplaceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
