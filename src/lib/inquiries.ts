@@ -5,6 +5,10 @@ export interface Inquiry {
   phone: string;
   message: string;
   subject: string;
+  /** Optional link to a seller product */
+  sellerId?: string;
+  productId?: string;
+  productName?: string;
   createdAt: string;
 }
 
@@ -32,4 +36,10 @@ export function getInquiries(): Inquiry[] {
   } catch {
     return [];
   }
+}
+
+export function getInquiriesForSeller(sellerId: string): Inquiry[] {
+  return getInquiries()
+    .filter((i) => i.sellerId === sellerId)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
