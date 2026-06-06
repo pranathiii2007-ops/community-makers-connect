@@ -130,7 +130,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <LanguageProvider>
-          <AppShell />
+          <SellerProvider>
+            <AppShell />
+          </SellerProvider>
         </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
