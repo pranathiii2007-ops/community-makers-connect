@@ -65,6 +65,21 @@ export function Navbar() {
             ))}
           </div>
 
+          <Button asChild size="sm" className="hidden sm:inline-flex">
+            <Link to={seller ? "/seller-dashboard" : "/sell"}>
+              {seller ? (
+                <>
+                  <LayoutDashboard className="mr-1 h-4 w-4" /> {t("sellerDashboard")}
+                </>
+              ) : (
+                <>
+                  <Store className="mr-1 h-4 w-4" /> {t("startSellingNav")}
+                </>
+              )}
+            </Link>
+          </Button>
+
+
           <button
             onClick={toggle}
             aria-label={theme === "dark" ? t("lightMode") : t("darkMode")}
