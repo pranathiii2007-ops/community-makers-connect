@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Moon, Sun, Sparkles } from "lucide-react";
+import { Menu, X, Moon, Sun, Sparkles, Store, LayoutDashboard } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useSeller } from "@/contexts/SellerContext";
+import { Button } from "@/components/ui/button";
 import type { UiKey } from "@/i18n/translations";
 
 const links: { to: string; key: UiKey }[] = [
@@ -19,6 +21,7 @@ const links: { to: string; key: UiKey }[] = [
 export function Navbar() {
   const { t, lang, setLang } = useLang();
   const { theme, toggle } = useTheme();
+  const { seller } = useSeller();
   const [open, setOpen] = useState(false);
 
   return (
@@ -62,6 +65,21 @@ export function Navbar() {
             ))}
           </div>
 
+          <Button asChild size="sm" className="hidden sm:inline-flex">
+            <Link to={seller ? "/seller-dashboard" : "/sell"}>
+              {seller ? (
+                <>
+                  <LayoutDashboard className="mr-1 h-4 w-4" /> {t("sellerDashboard")}
+                </>
+              ) : (
+                <>
+                  <Store className="mr-1 h-4 w-4" /> {t("startSellingNav")}
+                </>
+              )}
+            </Link>
+          </Button>
+
+
           <button
             onClick={toggle}
             aria-label={theme === "dark" ? t("lightMode") : t("darkMode")}
@@ -101,7 +119,16 @@ export function Navbar() {
                   {t(l.key)}
                 </Link>
               ))}
+              <Link
+                to={seller ? "/seller-dashboard" : "/sell"}
+                onClick={() => setOpen(false)}
+                className="mt-1 flex items-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground"
+              >
+                {seller ? <LayoutDashboard className="h-4 w-4" /> : <Store className="h-4 w-4" />}
+                {seller ? t("sellerDashboard") : t("startSellingNav")}
+              </Link>
             </div>
+
           </motion.div>
         )}
       </AnimatePresence>

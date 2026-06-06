@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider, useLang } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { SellerProvider } from "@/contexts/SellerContext";
 import { LanguageGate } from "@/components/LanguageGate";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -129,7 +130,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <LanguageProvider>
-          <AppShell />
+          <SellerProvider>
+            <AppShell />
+          </SellerProvider>
         </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
