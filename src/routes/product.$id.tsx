@@ -21,7 +21,7 @@ export const Route = createFileRoute("/product/$id")({
 
 function ProductDetailPage() {
   const { id } = Route.useParams();
-  const { t, lang, tr } = useLang();
+  const { t, lang } = useLang();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
