@@ -21,6 +21,7 @@ const links: { to: string; key: UiKey }[] = [
 export function Navbar() {
   const { t, lang, setLang } = useLang();
   const { theme, toggle } = useTheme();
+  const { seller } = useSeller();
   const [open, setOpen] = useState(false);
 
   return (
