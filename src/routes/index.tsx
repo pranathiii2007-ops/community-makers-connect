@@ -279,7 +279,7 @@ function Home() {
             <Button size="lg" onClick={() => navigate({ to: "/business-ideas" })}>
               {t("exploreIdeas")}
             </Button>
-            <Button size="lg" variant="outline" onClick={() => navigate({ to: "/marketplace" })}>
+            <Button size="lg" variant="outline" onClick={() => navigate({ to: "/sell" })}>
               {t("startSelling")}
             </Button>
           </div>
