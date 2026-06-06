@@ -81,7 +81,7 @@ function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => navigate({ to: "/marketplace" })}
+                onClick={() => navigate({ to: "/sell" })}
               >
                 <Store className="mr-1 h-4 w-4" /> {t("startSelling")}
               </Button>
