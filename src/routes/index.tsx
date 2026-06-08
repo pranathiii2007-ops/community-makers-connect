@@ -261,9 +261,12 @@ function Home() {
                 className="rounded-3xl border border-border bg-background p-6 shadow-soft"
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-warm text-2xl">
-                    {s.emoji}
-                  </span>
+                  <img
+                    src={s.image}
+                    alt={tr(s.name)}
+                    loading="lazy"
+                    className="h-14 w-14 rounded-full object-cover shadow-soft"
+                  />
                   <div>
                     <p className="font-semibold">{tr(s.name)}</p>
                     <p className="text-xs text-muted-foreground">{tr(s.role)}</p>
