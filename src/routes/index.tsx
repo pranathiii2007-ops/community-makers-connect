@@ -25,6 +25,7 @@ import {
   womenPoints,
   youthPoints,
   workflowSteps,
+  sectionImages,
 } from "@/data/content";
 
 export const Route = createFileRoute("/")({
