@@ -444,6 +444,7 @@ export interface Product {
   category: Bi;
   categoryKey: string;
   emoji: string;
+  image: string;
   desc: Bi;
 }
 
@@ -565,6 +566,7 @@ export interface Story {
   name: Bi;
   role: Bi;
   emoji: string;
+  image: string;
   story: Bi;
   testimonial: Bi;
   growth: Bi;
