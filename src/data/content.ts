@@ -1,9 +1,46 @@
 import type { Bi } from "@/i18n/translations";
 import { b } from "@/i18n/translations";
 
+import heroImg from "@/assets/hero.jpg";
+import ideaCandles from "@/assets/idea-candles.jpg";
+import ideaPickles from "@/assets/idea-pickles.jpg";
+import ideaTailoring from "@/assets/idea-tailoring.jpg";
+import ideaJewelry from "@/assets/idea-jewelry.jpg";
+import ideaGifts from "@/assets/idea-gifts.jpg";
+import ideaNursery from "@/assets/idea-nursery.jpg";
+import ideaCrochet from "@/assets/idea-crochet.jpg";
+import ideaPaintings from "@/assets/idea-paintings.jpg";
+import ideaDecor from "@/assets/idea-decor.jpg";
+import p1Img from "@/assets/p1.jpg";
+import p2Img from "@/assets/p2.jpg";
+import p3Img from "@/assets/p3.jpg";
+import p4Img from "@/assets/p4.jpg";
+import p5Img from "@/assets/p5.jpg";
+import p6Img from "@/assets/p6.jpg";
+import p7Img from "@/assets/p7.jpg";
+import p8Img from "@/assets/p8.jpg";
+import p9Img from "@/assets/p9.jpg";
+import storyLakshmi from "@/assets/story-lakshmi.jpg";
+import storyRamya from "@/assets/story-ramya.jpg";
+import storyShg from "@/assets/story-shg.jpg";
+import storyArjun from "@/assets/story-arjun.jpg";
+import womenImg from "@/assets/women.jpg";
+import youthImg from "@/assets/youth.jpg";
+import schemesImg from "@/assets/schemes.jpg";
+import contactImg from "@/assets/contact.jpg";
+
+export const sectionImages = {
+  hero: heroImg,
+  women: womenImg,
+  youth: youthImg,
+  schemes: schemesImg,
+  contact: contactImg,
+};
+
 export interface BusinessIdea {
   id: string;
   icon: string;
+  image: string;
   title: Bi;
   tagline: Bi;
   cost: Bi;
