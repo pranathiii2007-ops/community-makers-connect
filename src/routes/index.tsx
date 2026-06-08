@@ -233,6 +233,7 @@ function Home() {
             points={womenPoints}
             tr={tr}
             accent="bg-gradient-hero"
+            image={sectionImages.women}
           />
           <EmpowerBlock
             title={t("youthTitle")}
@@ -240,6 +241,7 @@ function Home() {
             points={youthPoints}
             tr={tr}
             accent="bg-gradient-teal"
+            image={sectionImages.youth}
           />
         </div>
       </section>
