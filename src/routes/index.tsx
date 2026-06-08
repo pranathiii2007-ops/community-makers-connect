@@ -106,19 +106,17 @@ function Home() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="relative"
           >
-            <div className="grid grid-cols-2 gap-4">
-              {["🕯️", "🥒", "🧵", "🎨", "🧶", "💍"].map((e, i) => (
-                <motion.div
-                  key={i}
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
-                  className={`glass flex aspect-square items-center justify-center rounded-3xl text-5xl shadow-card ${
-                    i % 2 ? "translate-y-6" : ""
-                  }`}
-                >
-                  {e}
-                </motion.div>
-              ))}
+            <div className="overflow-hidden rounded-[2rem] border border-border shadow-card">
+              <img
+                src={sectionImages.hero}
+                alt="Community makers crafting handmade products"
+                width={1280}
+                height={960}
+                className="aspect-[4/3] w-full object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-5 -left-5 hidden rounded-2xl border border-border bg-card/90 px-5 py-3 shadow-card backdrop-blur sm:block">
+              <p className="text-sm font-semibold">{t("tagline")}</p>
             </div>
           </motion.div>
         </div>
