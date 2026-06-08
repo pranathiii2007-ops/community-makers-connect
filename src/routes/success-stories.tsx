@@ -62,8 +62,8 @@ function StoriesPage() {
 
       {/* Women & Youth */}
       <div className="mt-16 grid gap-8 lg:grid-cols-2">
-        <Block title={t("womenTitle")} sub={t("womenSub")} points={womenPoints} tr={tr} />
-        <Block title={t("youthTitle")} sub={t("youthSub")} points={youthPoints} tr={tr} />
+        <Block title={t("womenTitle")} sub={t("womenSub")} points={womenPoints} tr={tr} image={sectionImages.women} />
+        <Block title={t("youthTitle")} sub={t("youthSub")} points={youthPoints} tr={tr} image={sectionImages.youth} />
       </div>
     </div>
   );
@@ -74,24 +74,29 @@ function Block({
   sub,
   points,
   tr,
+  image,
 }: {
   title: string;
   sub: string;
   points: { icon: string; title: { en: string; te: string }; text: { en: string; te: string } }[];
   tr: (o: { en: string; te: string }) => string;
+  image: string;
 }) {
   return (
-    <div className="rounded-3xl border border-border bg-card p-6">
-      <h3 className="text-xl font-bold text-gradient">{title}</h3>
-      <p className="mt-2 text-sm text-muted-foreground">{sub}</p>
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
-        {points.map((p, i) => (
-          <div key={i} className="rounded-2xl bg-muted p-4">
-            <span className="text-2xl">{p.icon}</span>
-            <h4 className="mt-2 text-sm font-semibold">{tr(p.title)}</h4>
-            <p className="mt-1 text-xs text-muted-foreground">{tr(p.text)}</p>
-          </div>
-        ))}
+    <div className="overflow-hidden rounded-3xl border border-border bg-card">
+      <img src={image} alt={title} loading="lazy" className="h-48 w-full object-cover" />
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-gradient">{title}</h3>
+        <p className="mt-2 text-sm text-muted-foreground">{sub}</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {points.map((p, i) => (
+            <div key={i} className="rounded-2xl bg-muted p-4">
+              <span className="text-2xl">{p.icon}</span>
+              <h4 className="mt-2 text-sm font-semibold">{tr(p.title)}</h4>
+              <p className="mt-1 text-xs text-muted-foreground">{tr(p.text)}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
