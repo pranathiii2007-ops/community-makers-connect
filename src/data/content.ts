@@ -765,7 +765,14 @@ export const businessIdeas: BusinessIdea[] = [
     expected: b("Envelope makers earn ₹2,500–₹9,000 monthly with event-season peaks.", "ఈవెంట్ సీజన్‌లలో కవర్ తయారీదారులు నెలకు ₹2,500–₹9,000 సంపాదిస్తారు."),
     challenges: [
       b("People often reuse old envelopes.", "ప్రజలు పాత కవర్లను తిరిగి వాడతారు."),
-      b("Digital transfers reducing letter usage.", 
+      b("Digital transfers reducing letter usage.", "డిజిటల్ బదిలీలు వల్ల పత్రాల ఉపయోగం తగ్గుతోంది."),
+    ],
+    tips: [
+      b("Create matching envelope + card sets for higher value.", "ఎక్కువ విలువ కోసం మ్యాచింగ్ కవర్ + కార్డ్ సెట్‌లు తయారు చేయండి."),
+      b("Use traditional motifs for festival envelopes.", "పండుగ కవర్ల కోసం సంప్రదాయ నమూనాలను వాడండి."),
+    ],
+  },
+];
 
 // Marketplace products
 export interface Product {
