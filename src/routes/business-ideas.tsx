@@ -6,7 +6,8 @@ import { useLang } from "@/i18n/LanguageContext";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BusinessIdeaModal } from "@/components/BusinessIdeaModal";
 import { Button } from "@/components/ui/button";
-import { businessIdeas, type BusinessIdea } from "@/data/content";
+import type { BusinessIdea } from "@/data/content";
+import { useBusinessIdeas } from "@/lib/db-content";
 
 export const Route = createFileRoute("/business-ideas")({
   head: () => ({
