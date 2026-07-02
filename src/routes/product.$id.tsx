@@ -6,7 +6,7 @@ import { useLang } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactFormModal } from "@/components/ContactFormModal";
-import { getMarketProduct } from "@/lib/market";
+import { useMarketProduct } from "@/lib/db-content";
 import { getSeller } from "@/lib/sellers";
 
 export const Route = createFileRoute("/product/$id")({
