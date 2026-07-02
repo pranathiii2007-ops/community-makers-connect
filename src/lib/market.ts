@@ -1,4 +1,4 @@
-import { products as staticProducts, productCategories } from "@/data/content";
+import { productCategories, type Product } from "@/data/content";
 import { sellerCategories, getAllSellerProducts, getSeller } from "@/lib/sellers";
 import type { Lang, Bi } from "@/i18n/translations";
 
