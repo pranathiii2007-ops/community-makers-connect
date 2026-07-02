@@ -8,6 +8,7 @@ import { BusinessIdeaModal } from "@/components/BusinessIdeaModal";
 import { Button } from "@/components/ui/button";
 import type { BusinessIdea } from "@/data/content";
 import { useBusinessIdeas } from "@/lib/db-content";
+import { b } from "@/i18n/translations";
 
 export const Route = createFileRoute("/business-ideas")({
   head: () => ({
