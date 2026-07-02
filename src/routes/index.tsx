@@ -21,12 +21,12 @@ import {
   solutions,
   impactStats,
   skills,
-  stories,
   womenPoints,
   youthPoints,
   workflowSteps,
   sectionImages,
 } from "@/data/content";
+import { useStories } from "@/lib/db-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
