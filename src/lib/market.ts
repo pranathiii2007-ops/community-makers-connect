@@ -18,7 +18,7 @@ export interface MarketProduct {
 const pick = (obj: Bi, lang: Lang) => obj[lang];
 
 /** Combined marketplace list: seller-created products first, then seed products. */
-export function getMarketProducts(lang: Lang): MarketProduct[] {
+export function getMarketProducts(lang: Lang, seedProducts: Product[] = []): MarketProduct[] {
   const sellerItems: MarketProduct[] = getAllSellerProducts().map((p) => {
     const seller = getSeller(p.sellerId);
     const cat = sellerCategories.find((c) => c.key === p.category);
@@ -35,7 +35,7 @@ export function getMarketProducts(lang: Lang): MarketProduct[] {
     };
   });
 
-  const seedItems: MarketProduct[] = staticProducts.map((p) => ({
+  const seedItems: MarketProduct[] = seedProducts.map((p) => ({
     id: p.id,
     name: pick(p.name, lang),
     price: p.price,
@@ -50,8 +50,12 @@ export function getMarketProducts(lang: Lang): MarketProduct[] {
   return [...sellerItems, ...seedItems];
 }
 
-export function getMarketProduct(id: string, lang: Lang): MarketProduct | undefined {
-  return getMarketProducts(lang).find((p) => p.id === id);
+export function getMarketProduct(
+  id: string,
+  lang: Lang,
+  seedProducts: Product[] = [],
+): MarketProduct | undefined {
+  return getMarketProducts(lang, seedProducts).find((p) => p.id === id);
 }
 
 /** Merged, de-duplicated category chips from seed + seller categories. */
