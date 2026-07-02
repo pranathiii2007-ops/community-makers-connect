@@ -21,12 +21,12 @@ import {
   solutions,
   impactStats,
   skills,
-  stories,
   womenPoints,
   youthPoints,
   workflowSteps,
   sectionImages,
 } from "@/data/content";
+import { useStories } from "@/lib/db-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,6 +49,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t, tr } = useLang();
+  const { data: stories = [] } = useStories();
   const navigate = useNavigate();
 
   useEffect(() => {

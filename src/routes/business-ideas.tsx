@@ -6,7 +6,9 @@ import { useLang } from "@/i18n/LanguageContext";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BusinessIdeaModal } from "@/components/BusinessIdeaModal";
 import { Button } from "@/components/ui/button";
-import { businessIdeas, type BusinessIdea } from "@/data/content";
+import type { BusinessIdea } from "@/data/content";
+import { useBusinessIdeas } from "@/lib/db-content";
+import { b } from "@/i18n/translations";
 
 export const Route = createFileRoute("/business-ideas")({
   head: () => ({
@@ -22,6 +24,7 @@ export const Route = createFileRoute("/business-ideas")({
 
 function BusinessIdeasPage() {
   const { t, tr } = useLang();
+  const { data: businessIdeas = [], isLoading } = useBusinessIdeas();
   const [active, setActive] = useState<BusinessIdea | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -36,7 +39,12 @@ function BusinessIdeasPage() {
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
       <SectionHeading titleKey="navIdeas" subKey="whySub" />
 
+      {isLoading && (
+        <p className="mt-12 text-center text-muted-foreground">{tr(b("Loading…", "లోడ్ అవుతోంది…"))}</p>
+      )}
+
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
         {businessIdeas.map((idea, i) => (
           <motion.div
             key={idea.id}

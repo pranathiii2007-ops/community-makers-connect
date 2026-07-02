@@ -4,7 +4,9 @@ import { Quote, TrendingUp } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageContext";
 import { SectionHeading } from "@/components/SectionHeading";
-import { stories, womenPoints, youthPoints, sectionImages } from "@/data/content";
+import { womenPoints, youthPoints, sectionImages } from "@/data/content";
+import { useStories } from "@/lib/db-content";
+import { b } from "@/i18n/translations";
 
 export const Route = createFileRoute("/success-stories")({
   head: () => ({
@@ -20,13 +22,18 @@ export const Route = createFileRoute("/success-stories")({
 
 function StoriesPage() {
   const { t, tr } = useLang();
+  const { data: stories = [], isLoading } = useStories();
   useEffect(() => window.scrollTo(0, 0), []);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
       <SectionHeading titleKey="storiesTitle" subKey="storiesSub" />
 
+      {isLoading && (
+        <p className="mt-12 text-center text-muted-foreground">{tr(b("Loading…", "లోడ్ అవుతోంది…"))}</p>
+      )}
       <div className="mt-12 grid gap-6 md:grid-cols-2">
+
         {stories.map((s, i) => (
           <motion.div
             key={s.id}

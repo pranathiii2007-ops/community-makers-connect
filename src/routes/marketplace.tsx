@@ -7,7 +7,8 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ContactFormModal } from "@/components/ContactFormModal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { getMarketProducts, getMarketCategories, type MarketProduct } from "@/lib/market";
+import { getMarketCategories, type MarketProduct } from "@/lib/market";
+import { useMarketProducts } from "@/lib/db-content";
 
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
@@ -30,7 +31,7 @@ function MarketplacePage() {
 
   useEffect(() => window.scrollTo(0, 0), []);
 
-  const all = useMemo(() => getMarketProducts(lang), [lang]);
+  const { products: all } = useMarketProducts(lang);
   const categories = useMemo(() => getMarketCategories(lang), [lang]);
 
   // Only show category chips that have products

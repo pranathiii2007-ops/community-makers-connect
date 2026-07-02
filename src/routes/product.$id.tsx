@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { ArrowLeft, MessageCircle, Store, MapPin } from "lucide-react";
@@ -6,7 +6,7 @@ import { useLang } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactFormModal } from "@/components/ContactFormModal";
-import { getMarketProduct } from "@/lib/market";
+import { useMarketProduct } from "@/lib/db-content";
 import { getSeller } from "@/lib/sellers";
 
 export const Route = createFileRoute("/product/$id")({
@@ -27,7 +27,7 @@ function ProductDetailPage() {
 
   useEffect(() => window.scrollTo(0, 0), [id]);
 
-  const product = useMemo(() => getMarketProduct(id, lang), [id, lang]);
+  const { product } = useMarketProduct(id, lang);
   const seller = product?.sellerId ? getSeller(product.sellerId) : undefined;
 
   if (!product) {
