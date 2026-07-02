@@ -14,7 +14,168 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      business_ideas: {
+        Row: {
+          challenges: Json
+          cost: Json
+          created_at: string
+          earning: Json
+          expected: Json
+          icon: string | null
+          id: string
+          image_key: string | null
+          image_url: string | null
+          marketing: Json
+          materials: Json
+          overview: Json
+          pricing: Json
+          skill: Json
+          sort: number
+          steps: Json
+          tagline: Json
+          tips: Json
+          title: Json
+          updated_at: string
+        }
+        Insert: {
+          challenges?: Json
+          cost?: Json
+          created_at?: string
+          earning?: Json
+          expected?: Json
+          icon?: string | null
+          id: string
+          image_key?: string | null
+          image_url?: string | null
+          marketing?: Json
+          materials?: Json
+          overview?: Json
+          pricing?: Json
+          skill?: Json
+          sort?: number
+          steps?: Json
+          tagline?: Json
+          tips?: Json
+          title?: Json
+          updated_at?: string
+        }
+        Update: {
+          challenges?: Json
+          cost?: Json
+          created_at?: string
+          earning?: Json
+          expected?: Json
+          icon?: string | null
+          id?: string
+          image_key?: string | null
+          image_url?: string | null
+          marketing?: Json
+          materials?: Json
+          overview?: Json
+          pricing?: Json
+          skill?: Json
+          sort?: number
+          steps?: Json
+          tagline?: Json
+          tips?: Json
+          title?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: Json
+          category_key: string | null
+          created_at: string
+          description: Json
+          emoji: string | null
+          id: string
+          image_key: string | null
+          image_url: string | null
+          name: Json
+          price: string | null
+          seller: Json
+          sort: number
+          updated_at: string
+        }
+        Insert: {
+          category?: Json
+          category_key?: string | null
+          created_at?: string
+          description?: Json
+          emoji?: string | null
+          id: string
+          image_key?: string | null
+          image_url?: string | null
+          name?: Json
+          price?: string | null
+          seller?: Json
+          sort?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: Json
+          category_key?: string | null
+          created_at?: string
+          description?: Json
+          emoji?: string | null
+          id?: string
+          image_key?: string | null
+          image_url?: string | null
+          name?: Json
+          price?: string | null
+          seller?: Json
+          sort?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      success_stories: {
+        Row: {
+          created_at: string
+          emoji: string | null
+          growth: Json
+          id: string
+          image_key: string | null
+          image_url: string | null
+          name: Json
+          role: Json
+          sort: number
+          story: Json
+          testimonial: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          emoji?: string | null
+          growth?: Json
+          id: string
+          image_key?: string | null
+          image_url?: string | null
+          name?: Json
+          role?: Json
+          sort?: number
+          story?: Json
+          testimonial?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string | null
+          growth?: Json
+          id?: string
+          image_key?: string | null
+          image_url?: string | null
+          name?: Json
+          role?: Json
+          sort?: number
+          story?: Json
+          testimonial?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
