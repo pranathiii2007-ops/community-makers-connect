@@ -49,6 +49,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { t, tr } = useLang();
+  const { data: stories = [] } = useStories();
   const navigate = useNavigate();
 
   useEffect(() => {
