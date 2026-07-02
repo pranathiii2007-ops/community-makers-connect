@@ -39,7 +39,7 @@ function BusinessIdeasPage() {
       <SectionHeading titleKey="navIdeas" subKey="whySub" />
 
       {isLoading && (
-        <p className="mt-12 text-center text-muted-foreground">{t("loading")}</p>
+        <p className="mt-12 text-center text-muted-foreground">{tr(b("Loading…", "లోడ్ అవుతోంది…"))}</p>
       )}
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
