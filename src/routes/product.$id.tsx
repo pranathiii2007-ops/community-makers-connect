@@ -27,7 +27,7 @@ function ProductDetailPage() {
 
   useEffect(() => window.scrollTo(0, 0), [id]);
 
-  const product = useMemo(() => getMarketProduct(id, lang), [id, lang]);
+  const { product } = useMarketProduct(id, lang);
   const seller = product?.sellerId ? getSeller(product.sellerId) : undefined;
 
   if (!product) {
