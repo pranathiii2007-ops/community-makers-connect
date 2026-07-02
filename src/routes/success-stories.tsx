@@ -4,7 +4,9 @@ import { Quote, TrendingUp } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useLang } from "@/i18n/LanguageContext";
 import { SectionHeading } from "@/components/SectionHeading";
-import { stories, womenPoints, youthPoints, sectionImages } from "@/data/content";
+import { womenPoints, youthPoints, sectionImages } from "@/data/content";
+import { useStories } from "@/lib/db-content";
+import { b } from "@/i18n/translations";
 
 export const Route = createFileRoute("/success-stories")({
   head: () => ({
