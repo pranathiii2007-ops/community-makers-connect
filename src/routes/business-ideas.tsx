@@ -23,6 +23,7 @@ export const Route = createFileRoute("/business-ideas")({
 
 function BusinessIdeasPage() {
   const { t, tr } = useLang();
+  const { data: businessIdeas = [], isLoading } = useBusinessIdeas();
   const [active, setActive] = useState<BusinessIdea | null>(null);
   const [open, setOpen] = useState(false);
 
