@@ -22,6 +22,7 @@ export const Route = createFileRoute("/success-stories")({
 
 function StoriesPage() {
   const { t, tr } = useLang();
+  const { data: stories = [], isLoading } = useStories();
   useEffect(() => window.scrollTo(0, 0), []);
 
   return (
