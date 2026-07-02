@@ -30,7 +30,7 @@ function MarketplacePage() {
 
   useEffect(() => window.scrollTo(0, 0), []);
 
-  const all = useMemo(() => getMarketProducts(lang), [lang]);
+  const { products: all } = useMarketProducts(lang);
   const categories = useMemo(() => getMarketCategories(lang), [lang]);
 
   // Only show category chips that have products
