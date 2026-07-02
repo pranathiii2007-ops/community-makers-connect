@@ -29,7 +29,11 @@ function StoriesPage() {
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
       <SectionHeading titleKey="storiesTitle" subKey="storiesSub" />
 
+      {isLoading && (
+        <p className="mt-12 text-center text-muted-foreground">{tr(b("Loading…", "లోడ్ అవుతోంది…"))}</p>
+      )}
       <div className="mt-12 grid gap-6 md:grid-cols-2">
+
         {stories.map((s, i) => (
           <motion.div
             key={s.id}
