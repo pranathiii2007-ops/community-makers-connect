@@ -38,7 +38,12 @@ function BusinessIdeasPage() {
     <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
       <SectionHeading titleKey="navIdeas" subKey="whySub" />
 
+      {isLoading && (
+        <p className="mt-12 text-center text-muted-foreground">{t("loading")}</p>
+      )}
+
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
         {businessIdeas.map((idea, i) => (
           <motion.div
             key={idea.id}
