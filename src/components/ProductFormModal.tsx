@@ -175,6 +175,20 @@ export function ProductFormModal({ open, onOpenChange, sellerId, product, onSave
             />
           </div>
 
+          <div className="grid gap-1.5">
+            <Label htmlFor="pf-discount">{t("discount")}</Label>
+            <Input
+              id="pf-discount"
+              type="number"
+              min={0}
+              max={100}
+              placeholder="10"
+              value={form.discount}
+              onChange={(e) => setForm({ ...form, discount: e.target.value })}
+            />
+            <p className="text-xs text-muted-foreground">{t("discountHint")}</p>
+          </div>
+
           <Button type="submit" disabled={loading} className="w-full">
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {product ? t("updateProduct") : t("publishProduct")}
