@@ -278,6 +278,39 @@ export const ui = {
   close: b("Close", "మూసివేయి"),
   lightMode: b("Light mode", "లైట్ మోడ్"),
   darkMode: b("Dark mode", "డార్క్ మోడ్"),
+
+  // Auth
+  password: b("Password", "పాస్‌వర్డ్"),
+  createPassword: b("Create Password", "పాస్‌వర్డ్ సృష్టించండి"),
+  register: b("Register", "నమోదు"),
+  login: b("Login", "లాగిన్"),
+  sellerLogin: b("Seller Login", "విక్రేత లాగిన్"),
+  loginToDashboard: b("Login to Dashboard", "డాష్‌బోర్డ్‌కు లాగిన్"),
+  loginSuccess: b("Welcome back!", "తిరిగి స్వాగతం!"),
+  invalidCredentials: b("Invalid email or password.", "తప్పు ఇమెయిల్ లేదా పాస్‌వర్డ్."),
+  emailAlreadyExists: b(
+    "A seller with this email already exists. Please login.",
+    "ఈ ఇమెయిల్‌తో విక్రేత ఇప్పటికే ఉన్నారు. దయచేసి లాగిన్ చేయండి.",
+  ),
+  dontHaveAccount: b("Don't have an account? Register", "ఖాతా లేదా? నమోదు చేయండి"),
+  haveAccount: b("Already registered? Login", "ఇప్పటికే నమోదయ్యారా? లాగిన్"),
+
+  // Discount
+  discount: b("Discount (%)", "తగ్గింపు (%)"),
+  discountHint: b("Optional. e.g. 10 for 10% off", "ఐచ్ఛికం. ఉదా. 10% తగ్గింపు కోసం 10"),
+  off: b("OFF", "తగ్గింపు"),
+
+  // Reviews
+  reviews: b("Reviews", "సమీక్షలు"),
+  writeReview: b("Write a Review", "సమీక్ష రాయండి"),
+  yourName: b("Your Name", "మీ పేరు"),
+  yourRating: b("Your Rating", "మీ రేటింగ్"),
+  yourReview: b("Your Review", "మీ సమీక్ష"),
+  submitReview: b("Submit Review", "సమీక్షను సమర్పించండి"),
+  reviewAdded: b("Thank you for your review!", "మీ సమీక్షకు ధన్యవాదాలు!"),
+  noReviewsYet: b("No reviews yet. Be the first!", "ఇంకా సమీక్షలు లేవు. మొదటివారు అవ్వండి!"),
+  basedOnReviews: b("based on", "ఆధారంగా"),
+  reviewsLower: b("reviews", "సమీక్షలు"),
 };
 
 export type UiKey = keyof typeof ui;
