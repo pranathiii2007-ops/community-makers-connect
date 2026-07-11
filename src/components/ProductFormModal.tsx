@@ -36,6 +36,7 @@ export function ProductFormModal({ open, onOpenChange, sellerId, product, onSave
     description: "",
     category: sellerCategories[0].key,
     price: "",
+    discount: "",
     image: "" as string,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
