@@ -82,17 +82,36 @@ export function getCurrentSeller(): Seller | null {
   return getSeller(id) ?? null;
 }
 
+export class SellerEmailExistsError extends Error {}
+
+export function findSellerByEmail(email: string): Seller | undefined {
+  const e = email.trim().toLowerCase();
+  return getSellers().find((s) => s.email.trim().toLowerCase() === e);
+}
+
 export function registerSeller(
   data: Omit<Seller, "id" | "createdAt">,
 ): Seller {
+  if (findSellerByEmail(data.email)) {
+    throw new SellerEmailExistsError("A seller with this email already exists.");
+  }
   const seller: Seller = {
     ...data,
+    email: data.email.trim(),
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
   };
   const sellers = getSellers();
   sellers.push(seller);
   write(SELLERS_KEY, sellers);
+  localStorage.setItem(CURRENT_KEY, seller.id);
+  return seller;
+}
+
+/** Attempt to log a seller in. Returns the seller on success, null otherwise. */
+export function loginSeller(email: string, password: string): Seller | null {
+  const seller = findSellerByEmail(email);
+  if (!seller || seller.password !== password) return null;
   localStorage.setItem(CURRENT_KEY, seller.id);
   return seller;
 }
