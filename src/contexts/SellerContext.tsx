@@ -8,6 +8,7 @@ import {
 } from "react";
 import {
   getCurrentSeller,
+  loginSeller as loginSellerLib,
   logoutSeller as logoutSellerLib,
   type Seller,
 } from "@/lib/sellers";
@@ -16,6 +17,8 @@ interface SellerContextValue {
   seller: Seller | null;
   /** Re-read seller/products/inquiries from storage. */
   refresh: () => void;
+  /** Attempt login; returns true on success. */
+  login: (email: string, password: string) => boolean;
   logout: () => void;
 }
 
@@ -32,13 +35,22 @@ export function SellerProvider({ children }: { children: ReactNode }) {
     refresh();
   }, [refresh]);
 
+  const login = useCallback((email: string, password: string) => {
+    const s = loginSellerLib(email, password);
+    if (s) {
+      setSeller(s);
+      return true;
+    }
+    return false;
+  }, []);
+
   const logout = useCallback(() => {
     logoutSellerLib();
     setSeller(null);
   }, []);
 
   return (
-    <SellerContext.Provider value={{ seller, refresh, logout }}>
+    <SellerContext.Provider value={{ seller, refresh, login, logout }}>
       {children}
     </SellerContext.Provider>
   );

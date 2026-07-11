@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { toast } from "sonner";
-import { Store, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Store, ArrowRight, CheckCircle2, LogIn } from "lucide-react";
 import { useLang } from "@/i18n/LanguageContext";
 import { useSeller } from "@/contexts/SellerContext";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -10,7 +10,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { sellerCategories, registerSeller } from "@/lib/sellers";
+import {
+  sellerCategories,
+  registerSeller,
+  SellerEmailExistsError,
+} from "@/lib/sellers";
 import { workflowSteps } from "@/data/content";
 
 export const Route = createFileRoute("/sell")({
@@ -25,10 +29,13 @@ export const Route = createFileRoute("/sell")({
   component: SellPage,
 });
 
+type Mode = "register" | "login";
+
 function SellPage() {
   const { t, tr } = useLang();
   const navigate = useNavigate();
-  const { seller, refresh } = useSeller();
+  const { seller, refresh, login } = useSeller();
+  const [mode, setMode] = useState<Mode>("register");
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -37,7 +44,9 @@ function SellPage() {
     businessName: "",
     category: sellerCategories[0].key,
     description: "",
+    password: "",
   });
+  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => window.scrollTo(0, 0), []);
@@ -50,6 +59,7 @@ function SellPage() {
     if (form.location.trim().length < 2) e.location = "!";
     if (form.businessName.trim().length < 2) e.businessName = "!";
     if (form.description.trim().length < 5) e.description = "!";
+    if (form.password.length < 4) e.password = "!";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -57,10 +67,28 @@ function SellPage() {
   const submit = (ev: React.FormEvent) => {
     ev.preventDefault();
     if (!validate()) return;
-    registerSeller(form);
-    refresh();
-    toast.success(t("registrationSuccess"));
-    navigate({ to: "/seller-dashboard" });
+    try {
+      registerSeller(form);
+      refresh();
+      toast.success(t("registrationSuccess"));
+      navigate({ to: "/seller-dashboard" });
+    } catch (err) {
+      if (err instanceof SellerEmailExistsError) {
+        toast.error(t("emailAlreadyExists"));
+        setMode("login");
+        setLoginForm((f) => ({ ...f, email: form.email }));
+      }
+    }
+  };
+
+  const submitLogin = (ev: React.FormEvent) => {
+    ev.preventDefault();
+    if (login(loginForm.email, loginForm.password)) {
+      toast.success(t("loginSuccess"));
+      navigate({ to: "/seller-dashboard" });
+    } else {
+      toast.error(t("invalidCredentials"));
+    }
   };
 
   if (seller) {
@@ -106,55 +134,96 @@ function SellPage() {
           </div>
         </div>
 
-        {/* Registration form */}
+        {/* Register / Login card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="rounded-3xl border border-border bg-card p-6 shadow-card sm:p-8"
         >
-          <form onSubmit={submit} className="grid gap-4">
-            <Field label={t("fullName")} err={errors.fullName}>
-              <Input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} />
-            </Field>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label={t("email")} err={errors.email}>
-                <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          {/* Mode tabs */}
+          <div className="mb-6 grid grid-cols-2 gap-2 rounded-xl bg-muted p-1">
+            <button
+              type="button"
+              onClick={() => setMode("register")}
+              className={`rounded-lg py-2 text-sm font-medium transition-colors ${mode === "register" ? "bg-card text-foreground shadow-soft" : "text-muted-foreground"}`}
+            >
+              {t("register")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode("login")}
+              className={`rounded-lg py-2 text-sm font-medium transition-colors ${mode === "login" ? "bg-card text-foreground shadow-soft" : "text-muted-foreground"}`}
+            >
+              {t("login")}
+            </button>
+          </div>
+
+          {mode === "register" ? (
+            <form onSubmit={submit} className="grid gap-4">
+              <Field label={t("fullName")} err={errors.fullName}>
+                <Input value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} />
               </Field>
-              <Field label={t("phone")} err={errors.phone}>
-                <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label={t("email")} err={errors.email}>
+                  <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                </Field>
+                <Field label={t("phone")} err={errors.phone}>
+                  <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                </Field>
+              </div>
+              <Field label={t("location")} err={errors.location}>
+                <Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
               </Field>
-            </div>
-            <Field label={t("location")} err={errors.location}>
-              <Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
-            </Field>
-            <Field label={t("businessName")} err={errors.businessName}>
-              <Input value={form.businessName} onChange={(e) => setForm({ ...form, businessName: e.target.value })} />
-            </Field>
-            <div className="grid gap-1.5">
-              <Label>{t("businessCategory")}</Label>
-              <select
-                value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-                className="h-10 rounded-md border border-input bg-background px-3 text-sm"
-              >
-                {sellerCategories.map((c) => (
-                  <option key={c.key} value={c.key}>{tr(c.label)}</option>
-                ))}
-              </select>
-            </div>
-            <Field label={t("businessDescription")} err={errors.description}>
-              <Textarea rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
-            </Field>
-            <Button type="submit" size="lg" className="mt-2 w-full">
-              {t("registerNow")} <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
-            <p className="text-center text-xs text-muted-foreground">
-              {t("alreadySeller")}{" "}
-              <Link to="/seller-dashboard" className="font-medium text-primary hover:underline">
-                {t("goToDashboard")}
-              </Link>
-            </p>
-          </form>
+              <Field label={t("businessName")} err={errors.businessName}>
+                <Input value={form.businessName} onChange={(e) => setForm({ ...form, businessName: e.target.value })} />
+              </Field>
+              <div className="grid gap-1.5">
+                <Label>{t("businessCategory")}</Label>
+                <select
+                  value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                  className="h-10 rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  {sellerCategories.map((c) => (
+                    <option key={c.key} value={c.key}>{tr(c.label)}</option>
+                  ))}
+                </select>
+              </div>
+              <Field label={t("createPassword")} err={errors.password}>
+                <Input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+              </Field>
+              <Field label={t("businessDescription")} err={errors.description}>
+                <Textarea rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+              </Field>
+              <Button type="submit" size="lg" className="mt-2 w-full">
+                {t("registerNow")} <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+              <p className="text-center text-xs text-muted-foreground">
+                <button type="button" onClick={() => setMode("login")} className="font-medium text-primary hover:underline">
+                  {t("haveAccount")}
+                </button>
+              </p>
+            </form>
+          ) : (
+            <form onSubmit={submitLogin} className="grid gap-4">
+              <div className="grid gap-1.5">
+                <Label>{t("email")}</Label>
+                <Input type="email" value={loginForm.email} onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })} />
+              </div>
+              <div className="grid gap-1.5">
+                <Label>{t("password")}</Label>
+                <Input type="password" value={loginForm.password} onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })} />
+              </div>
+              <Button type="submit" size="lg" className="mt-2 w-full">
+                <LogIn className="mr-1 h-4 w-4" /> {t("loginToDashboard")}
+              </Button>
+              <p className="text-center text-xs text-muted-foreground">
+                <button type="button" onClick={() => setMode("register")} className="font-medium text-primary hover:underline">
+                  {t("dontHaveAccount")}
+                </button>
+              </p>
+            </form>
+          )}
         </motion.div>
       </div>
     </div>

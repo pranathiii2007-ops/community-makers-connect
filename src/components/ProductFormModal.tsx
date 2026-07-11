@@ -36,6 +36,7 @@ export function ProductFormModal({ open, onOpenChange, sellerId, product, onSave
     description: "",
     category: sellerCategories[0].key,
     price: "",
+    discount: "",
     image: "" as string,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -47,6 +48,7 @@ export function ProductFormModal({ open, onOpenChange, sellerId, product, onSave
         description: product?.description ?? "",
         category: product?.category ?? sellerCategories[0].key,
         price: product?.price ?? "",
+        discount: product?.discount ?? "",
         image: product?.image ?? "",
       });
       setErrors({});
@@ -171,6 +173,20 @@ export function ProductFormModal({ open, onOpenChange, sellerId, product, onSave
               onChange={(e) => setForm({ ...form, price: e.target.value })}
               className={errors.price ? "border-destructive" : ""}
             />
+          </div>
+
+          <div className="grid gap-1.5">
+            <Label htmlFor="pf-discount">{t("discount")}</Label>
+            <Input
+              id="pf-discount"
+              type="number"
+              min={0}
+              max={100}
+              placeholder="10"
+              value={form.discount}
+              onChange={(e) => setForm({ ...form, discount: e.target.value })}
+            />
+            <p className="text-xs text-muted-foreground">{t("discountHint")}</p>
           </div>
 
           <Button type="submit" disabled={loading} className="w-full">

@@ -6,6 +6,10 @@ export interface MarketProduct {
   id: string;
   name: string;
   price: string;
+  /** Discounted price string when a discount applies. */
+  discountedPrice?: string;
+  /** Discount percentage number when a discount applies. */
+  discountPercent?: number;
   sellerName: string;
   sellerId?: string;
   categoryKey: string;
@@ -17,6 +21,23 @@ export interface MarketProduct {
 
 const pick = (obj: Bi, lang: Lang) => obj[lang];
 
+/** Compute a discounted price string from a price like "₹250" and a percent. */
+export function computeDiscount(
+  price: string,
+  discount?: string,
+): { discountPercent?: number; discountedPrice?: string } {
+  const pct = Number(discount);
+  if (!discount || !Number.isFinite(pct) || pct <= 0) return {};
+  const clamped = Math.min(pct, 100);
+  const match = price.match(/[\d,.]+/);
+  if (!match) return { discountPercent: clamped };
+  const num = Number(match[0].replace(/,/g, ""));
+  if (!Number.isFinite(num)) return { discountPercent: clamped };
+  const newNum = Math.round(num * (1 - clamped / 100));
+  const discountedPrice = price.replace(match[0], String(newNum));
+  return { discountPercent: clamped, discountedPrice };
+}
+
 /** Combined marketplace list: seller-created products first, then seed products. */
 export function getMarketProducts(lang: Lang, seedProducts: Product[] = []): MarketProduct[] {
   const sellerItems: MarketProduct[] = getAllSellerProducts().map((p) => {
@@ -26,6 +47,7 @@ export function getMarketProducts(lang: Lang, seedProducts: Product[] = []): Mar
       id: p.id,
       name: p.name,
       price: p.price,
+      ...computeDiscount(p.price, p.discount),
       sellerName: seller?.businessName ?? "",
       sellerId: p.sellerId,
       categoryKey: p.category,

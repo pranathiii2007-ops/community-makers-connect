@@ -8,6 +8,8 @@ import { ContactFormModal } from "@/components/ContactFormModal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getMarketCategories, type MarketProduct } from "@/lib/market";
+import { getRatingSummary } from "@/lib/reviews";
+import { StarRating } from "@/components/StarRating";
 import { useMarketProducts } from "@/lib/db-content";
 
 export const Route = createFileRoute("/marketplace")({
@@ -76,19 +78,34 @@ function MarketplacePage() {
             whileHover={{ y: -6 }}
             className="group flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft"
           >
-            {p.image ? (
-              <img src={p.image} alt={p.name} className="h-44 w-full object-cover transition-transform group-hover:scale-105" />
-            ) : (
-              <div className="flex items-center justify-center bg-gradient-warm py-10 text-6xl transition-transform group-hover:scale-110">
-                {p.emoji}
-              </div>
-            )}
+            <div className="relative">
+              {p.image ? (
+                <img src={p.image} alt={p.name} className="h-44 w-full object-cover transition-transform group-hover:scale-105" />
+              ) : (
+                <div className="flex items-center justify-center bg-gradient-warm py-10 text-6xl transition-transform group-hover:scale-110">
+                  {p.emoji}
+                </div>
+              )}
+              {p.discountPercent ? (
+                <span className="absolute left-3 top-3 rounded-full bg-destructive px-2.5 py-1 text-xs font-bold text-destructive-foreground shadow-soft">
+                  {p.discountPercent}% {t("off")}
+                </span>
+              ) : null}
+            </div>
             <div className="flex flex-1 flex-col p-5">
               <Badge variant="secondary" className="w-fit font-normal">{p.category}</Badge>
               <h3 className="mt-2 text-lg font-semibold">{p.name}</h3>
+              <StarRating summary={getRatingSummary(p.id)} className="mt-1.5" />
               <div className="mt-2 flex items-center justify-between">
                 <span className="text-xs text-muted-foreground">{t("seller")}: {p.sellerName}</span>
-                <span className="text-lg font-bold text-primary">{p.price}</span>
+                {p.discountedPrice ? (
+                  <span className="flex items-baseline gap-1.5">
+                    <span className="text-sm text-muted-foreground line-through">{p.price}</span>
+                    <span className="text-lg font-bold text-primary">{p.discountedPrice}</span>
+                  </span>
+                ) : (
+                  <span className="text-lg font-bold text-primary">{p.price}</span>
+                )}
               </div>
               <div className="mt-4 flex flex-col gap-2">
                 <Button
