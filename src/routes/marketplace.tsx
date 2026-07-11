@@ -8,6 +8,8 @@ import { ContactFormModal } from "@/components/ContactFormModal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getMarketCategories, type MarketProduct } from "@/lib/market";
+import { getRatingSummary } from "@/lib/reviews";
+import { StarRating } from "@/components/StarRating";
 import { useMarketProducts } from "@/lib/db-content";
 
 export const Route = createFileRoute("/marketplace")({
