@@ -26,6 +26,7 @@ export interface Seller {
   businessName: string;
   category: string; // sellerCategories key
   description: string;
+  password: string;
   createdAt: string;
 }
 
@@ -36,6 +37,8 @@ export interface SellerProduct {
   description: string;
   category: string; // sellerCategories key
   price: string;
+  /** Optional discount percentage (0-100) as a string. */
+  discount?: string;
   image?: string; // data URL
   createdAt: string;
 }
