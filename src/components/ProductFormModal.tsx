@@ -48,6 +48,7 @@ export function ProductFormModal({ open, onOpenChange, sellerId, product, onSave
         description: product?.description ?? "",
         category: product?.category ?? sellerCategories[0].key,
         price: product?.price ?? "",
+        discount: product?.discount ?? "",
         image: product?.image ?? "",
       });
       setErrors({});
