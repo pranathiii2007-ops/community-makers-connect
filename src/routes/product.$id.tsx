@@ -186,7 +186,7 @@ function ReviewForm({ productId, onAdded }: { productId: string; onAdded: () => 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim().length < 2 || rating < 1 || comment.trim().length < 2) {
-      toast.error(t("invalidCredentials") && t("yourReview"));
+      toast.error(t("writeReview"));
       return;
     }
     addReview({ productId, name: name.trim(), rating, comment: comment.trim() });
