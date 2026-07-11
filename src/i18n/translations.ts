@@ -303,7 +303,7 @@ export const ui = {
   // Reviews
   reviews: b("Reviews", "సమీక్షలు"),
   writeReview: b("Write a Review", "సమీక్ష రాయండి"),
-  yourName: b("Your Name", "మీ పేరు"),
+  reviewerName: b("Your Name", "మీ పేరు"),
   yourRating: b("Your Rating", "మీ రేటింగ్"),
   yourReview: b("Your Review", "మీ సమీక్ష"),
   submitReview: b("Submit Review", "సమీక్షను సమర్పించండి"),
