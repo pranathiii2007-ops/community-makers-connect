@@ -52,7 +52,9 @@ function DashboardPage() {
   const [products, setProducts] = useState<SellerProduct[]>([]);
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
 
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const reload = useCallback(() => {
     if (!seller) return;

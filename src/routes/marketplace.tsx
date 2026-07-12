@@ -31,7 +31,9 @@ function MarketplacePage() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<MarketProduct | null>(null);
 
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { products: all } = useMarketProducts(lang);
   const categories = useMemo(() => getMarketCategories(lang), [lang]);
