@@ -21,7 +21,9 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   const { t, tr } = useLang();
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">

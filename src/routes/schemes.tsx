@@ -29,7 +29,9 @@ function SchemesPage() {
   const { t, tr } = useLang();
   const [q, setQ] = useState("");
 
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();

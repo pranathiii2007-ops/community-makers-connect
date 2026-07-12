@@ -28,7 +28,9 @@ function BusinessIdeasPage() {
   const [active, setActive] = useState<BusinessIdea | null>(null);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const openIdea = (idea: BusinessIdea) => {
     setActive(idea);
